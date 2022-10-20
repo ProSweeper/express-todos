@@ -8,6 +8,8 @@ var todosCtrl = require('../controllers/todos')
 router.get('/', todosCtrl.index);
 // GET /todos/new <-- define before show route
 router.get('/new', todosCtrl.new);
+// POST /todos
+router.post('/', todosCtrl.create)
 // GET /todos/:id
 router.get('/:id', todosCtrl.show);
 
