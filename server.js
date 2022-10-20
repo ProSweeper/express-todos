@@ -13,16 +13,35 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// the next param is a callback function
+app.use(function(req, res, next) {
+  console.log('Hello SEI!');
+  // add a time property to the res.locals object
+  // the time property will then be accessible within templates
+  res.locals.time = new Date().toLocaleTimeString(); // locals is how express provides data to templates
+  // need to call the next function so the app doesn't stall
+  next();
+});
+
+// mount middleware into request pipeline
+//app.use([starts with path], <middleware fn>) (the starts with path is an optional arg)
+// log in the terminal with the HTTP request info
 app.use(logger('dev'));
+// process the data sent in the body of the request if its a json 
 app.use(express.json());
+// processes data sent in 'form' body of the request
+// will create property on req.body for each <input>, <select>, and/or <textarea>
+// in the <form> 
 app.use(express.urlencoded({ extended: false }));
+// add a cookies property for each cookie sent in the request
 app.use(cookieParser());
+// If the request is for a static asset (CSS, HTML, JS), returns the file to the browser
 app.use(express.static(path.join(__dirname, 'public')));
 
 // the first arg is the 'starts with' path
 // the paths within the route modules are appended to the starts with paths
-app.use('/', indexRouter);
-app.use('/todos', todosRouter);
+app.use('/', indexRouter); // will only be checked if the route starts with the root (thats the '/')
+app.use('/todos', todosRouter); // will only be checked if the route starts with /todos
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
