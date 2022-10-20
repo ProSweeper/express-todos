@@ -5,6 +5,7 @@ module.exports = {
     show,
     new: newTodo,
     create,
+    delete: deleteTodo,
 }
 
 function index(req, res) {
@@ -37,4 +38,12 @@ function create(req, res) {
     Todo.create(req.body);
     // always do a redirect when data has been changed
     res.redirect('/todos') // tells browser to make a new GET request to the /todos page
+}
+
+function deleteTodo(req, res) {
+    // the req.params.id correlates to the route param in the routes
+    // module - router.delete('/:id', todosCtrl.delete)
+    Todo.deleteOne(req.params.id);
+    // we changed data so we need to do a redirect
+    res.redirect('/todos');
 }

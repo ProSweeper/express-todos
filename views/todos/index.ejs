@@ -5,6 +5,24 @@
 <ul>
   <% todos.forEach(function(t) { %>
     <li>
+      <!-- forms can only send get or post requests so even -->
+      <!-- though we want this form to delete something we -->
+      <!-- need a post method for now -->
+      <!-- since we only want to delete one todo we need to pass -->
+      <!-- an id into the url. this needs to be from a squid tag -->
+      <!-- since we cant put :id into the url -->
+      <!-- then after the id part of the url we pass in the query param -->
+      <!-- prefaced by the question mark  and pass the key:value pair in-->
+      <!-- we want our method over ride to find the url so we need to  -->
+      <!-- have the _method query, and since we want this form to delete -->
+      <!-- we have the value set to DELETE (needs to be capitalized) -->
+      <form 
+        action="/todos/<%= t.id %>?_method=DELETE" 
+        method="POST"
+        class="delete-form"
+      >
+        <button type="submit">X</button>
+      </form>
       <a href="/todos/<%= t.id %>"><%= t.todo %></a>
       - 
       <%= t.done ? 'done' : 'not done' %>

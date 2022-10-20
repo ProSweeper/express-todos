@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
 var todosRouter = require('./routes/todos');
@@ -37,6 +38,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // If the request is for a static asset (CSS, HTML, JS), returns the file to the browser
 app.use(express.static(path.join(__dirname, 'public')));
+
+// wants to know the name of the query parameter (in the url)
+// a query param is a way to pass extra info to the server from using
+// the url but it does not change the path
+app.use(methodOverride('_method'));
 
 // the first arg is the 'starts with' path
 // the paths within the route modules are appended to the starts with paths

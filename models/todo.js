@@ -8,6 +8,7 @@ module.exports = {
     getAll,
     getOne,
     create,
+    deleteOne,
 };
 
 // we want the param because the controller create function has a 
@@ -33,4 +34,18 @@ function getOne(id) {
     // search for the todo where the id is equal to the 
     // id that gets passed into the function
     return todos.find(todo => todo.id === id);
+}
+
+function deleteOne(id) {
+    // we need to convert id to a number since it is a number in the objects
+    id = parseInt(id);
+    // since we defined our array as a const we cannot redefine the array
+    // we need to edit/update it in place
+    // we can use the splice method to remove an element from the array
+    // we just need to get a hold of the index 
+    const idx = todos.findIndex(todo => todo.id === id);
+    // now that we have the index we can splice the array
+    // first arg is the index we want to start at
+    // second arg is the amount of items we want to delete
+    todos.splice(idx, 1);
 }
