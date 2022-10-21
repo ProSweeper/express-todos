@@ -53,7 +53,7 @@ function deleteTodo(req, res) {
 function edit(req, res) {
     // the request has params and we can grab the id from there
     const todo = Todo.getOne(req.params.id);
-    res.render("/todos/edit", {
+    res.render("todos/edit", {
         // need our title due to our partials
         title: 'Edit To-Do',
         todo, // shorthand naming
