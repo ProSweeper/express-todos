@@ -6,6 +6,8 @@ module.exports = {
     new: newTodo,
     create,
     delete: deleteTodo,
+    edit,
+    update,
 }
 
 function index(req, res) {
@@ -46,4 +48,25 @@ function deleteTodo(req, res) {
     Todo.deleteOne(req.params.id);
     // we changed data so we need to do a redirect
     res.redirect('/todos');
+}
+
+function edit(req, res) {
+    // the request has params and we can grab the id from there
+    const todo = Todo.getOne(req.params.id);
+    res.render("/todos/edit", {
+        // need our title due to our partials
+        title: 'Edit To-Do',
+        todo, // shorthand naming
+    });
+}
+
+function update(req, res) {
+    // again we tap into the id param from the url
+    // the req.body is from the forms value attribute on the edit view template
+    // and gets put into the request body
+    Todo.update(req.params.id, req.body);
+    // since we changed data we redirect
+    // by using a template literal we can grab the id from above and 
+    // redirect the user to the show template with the id 
+    res.redirect(`/todos/${req.params.id}`);
 }

@@ -9,6 +9,7 @@ module.exports = {
     getOne,
     create,
     deleteOne,
+    update,
 };
 
 // we want the param because the controller create function has a 
@@ -48,4 +49,17 @@ function deleteOne(id) {
     // first arg is the index we want to start at
     // second arg is the amount of items we want to delete
     todos.splice(idx, 1);
+}
+
+function update(id, updatedTodo) {
+    // we need to convert the id into a number
+    id = parseInt(id);
+    // search for the todo where the id is equal to the 
+    // id that gets passed into the function and cache it
+    const todo = todos.find(todo => todo.id === id);
+    // the best practice when updating a resource is to merge the 
+    // updated object with the old object 
+    // we can do this with a static method Object.assign()
+    Object.assign(todo, updatedTodo);
+    // we are not reassigning todo, thats why we can still use const
 }
