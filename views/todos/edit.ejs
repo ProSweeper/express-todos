@@ -6,7 +6,12 @@
     <!-- the name attribute is what the server will see -->
     <!-- and what the middleware will see in terms of data being sent to it -->
     <!-- we want this name to match the name in the model -->
-    <input type="text" name="todo" value="<%= todo.todo %>">
+    <input type="text" name="todo" value="<%= todo.todo %>"><br>
+    <!-- dont forget the name so we can map it to the model  -->
+    <label>
+        <input type="checkbox" name="done" <%= todo.done ? 'checked' : '' %> > 
+        Completed?
+    </label> <br>
     <button type="submit">Update To-Do</button>
 </form>
 

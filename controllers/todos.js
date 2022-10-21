@@ -61,6 +61,7 @@ function edit(req, res) {
 }
 
 function update(req, res) {
+    req.body.done = !!req.body.done;
     // again we tap into the id param from the url
     // the req.body is from the forms value attribute on the edit view template
     // and gets put into the request body
